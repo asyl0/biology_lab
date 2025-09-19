@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useLabs } from '@/hooks/useLabs'
@@ -25,7 +26,8 @@ import {
 import { Lab, SteamMaterial, TeacherMaterial, SearchFilters } from '@/types'
 
 export default function Dashboard() {
-  const { user, role } = useAuth()
+  const router = useRouter()
+  const { user, role, loading: authLoading } = useAuth()
   const { t } = useLanguage()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedClass, setSelectedClass] = useState<number | null>(null)
@@ -36,6 +38,27 @@ export default function Dashboard() {
   const { materials: steamMaterials, loading: steamLoading, error: steamError, refetch: refetchSteam } = useSteam()
   const { materials: teacherMaterials, loading: teachersLoading, error: teachersError, refetch: refetchTeachers } = useTeachersMaterials()
   
+  // Проверяем аутентификацию
+  useEffect(() => {
+    console.log('Dashboard: Auth state check:', { user: user?.email, authLoading, hasUser: !!user })
+    
+    if (!authLoading && !user) {
+      console.log('Dashboard: User not authenticated, redirecting to login')
+      // Принудительно перенаправляем на страницу входа
+      window.location.href = '/auth/login'
+    }
+  }, [user, authLoading, router])
+
+  // Показываем загрузку пока проверяем аутентификацию
+  if (authLoading) {
+    return <LoadingPage timeout={10000} />
+  }
+
+  // Если пользователь не авторизован, не показываем ничего (редирект уже произошел)
+  if (!user) {
+    return null
+  }
+
   const loading = labsLoading || steamLoading || teachersLoading
   const hasError = labsError || steamError || teachersError
 

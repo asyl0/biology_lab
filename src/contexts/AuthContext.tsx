@@ -25,6 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Получаем текущую сессию
     const getSession = async () => {
       try {
+        console.log('AuthContext: Getting initial session...')
         const { data: { session }, error } = await supabase.auth.getSession()
         
         if (error) {
@@ -33,11 +34,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return
         }
         
+        console.log('AuthContext: Initial session:', session?.user?.email)
         setSession(session)
         setUser(session?.user ?? null)
         
         if (session?.user) {
+          console.log('AuthContext: User found, fetching role...')
           await fetchUserRole(session.user.id)
+        } else {
+          console.log('AuthContext: No user in session')
         }
       } catch (error) {
         console.error('Error in getSession:', error)
@@ -48,6 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Добавляем таймаут для предотвращения бесконечной загрузки
     const timeoutId = setTimeout(() => {
+      console.log('AuthContext: Timeout reached, setting loading to false')
       setLoading(false)
     }, 10000) // 10 секунд таймаут
 
@@ -58,39 +64,64 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Слушаем изменения аутентификации
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.id)
+        console.log('=== ИЗМЕНЕНИЕ СОСТОЯНИЯ АУТЕНТИФИКАЦИИ ===')
+        console.log('Событие:', event)
+        console.log('Сессия:', session?.user?.id)
+        console.log('Email пользователя:', session?.user?.email)
         
         try {
           setSession(session)
           setUser(session?.user ?? null)
           
           if (session?.user) {
-            console.log('User authenticated, fetching role...')
+            console.log('Пользователь аутентифицирован, получаем роль...')
             await fetchUserRole(session.user.id)
           } else {
-            console.log('No user, clearing role')
+            console.log('Нет пользователя, очищаем роль')
             setRole(null)
           }
         } catch (error) {
-          console.error('Error in auth state change:', error)
+          console.error('Ошибка при изменении состояния аутентификации:', error)
         } finally {
           setLoading(false)
         }
         
         // При выходе принудительно обновляем страницу
         if (event === 'SIGNED_OUT') {
-          console.log('User signed out, redirecting...')
+          console.log('Пользователь вышел, перенаправляем...')
           window.location.href = '/'
         }
       }
     )
+
+    // Дополнительная проверка для случаев, когда onAuthStateChange не срабатывает
+    const checkAuthState = async () => {
+      try {
+        const { data: { session: currentSession } } = await supabase.auth.getSession()
+        if (currentSession && !session) {
+          console.log('Обнаружена активная сессия, обновляем состояние...')
+          setSession(currentSession)
+          setUser(currentSession.user)
+          if (currentSession.user) {
+            await fetchUserRole(currentSession.user.id)
+          }
+          setLoading(false)
+        }
+      } catch (error) {
+        console.error('Ошибка при проверке состояния аутентификации:', error)
+      }
+    }
+
+    // Проверяем состояние аутентификации через небольшую задержку
+    setTimeout(checkAuthState, 500)
 
     return () => subscription.unsubscribe()
   }, [])
 
   const fetchUserRole = async (userId: string) => {
     try {
-      console.log('Fetching user role for:', userId)
+      console.log('=== ПОЛУЧЕНИЕ РОЛИ ПОЛЬЗОВАТЕЛЯ ===')
+      console.log('ID пользователя:', userId)
       
       const { data: profile, error } = await supabase
         .from('profiles')
@@ -98,35 +129,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .eq('user_id', userId)
         .single()
 
+      console.log('Ответ от Supabase:', { profile, error })
+
       if (error) {
-        console.error('Error fetching profile:', error)
+        console.error('Ошибка получения профиля:', error)
         setRole(null)
         return
       }
 
       if (profile) {
-        console.log('User role found:', profile.role)
+        console.log('Роль пользователя найдена:', profile.role)
         setRole(profile.role as UserRole)
       } else {
-        console.log('No profile found, setting role to null')
+        console.log('Профиль не найден, устанавливаем роль в null')
         setRole(null)
       }
     } catch (error) {
-      console.error('Error fetching user role:', error)
+      console.error('Ошибка получения роли пользователя:', error)
       setRole(null)
     }
   }
 
   const signOut = async () => {
     try {
-      console.log('Starting sign out process...')
+      console.log('=== НАЧАЛО ПРОЦЕССА ВЫХОДА ===')
+      console.log('Текущий пользователь:', user?.email)
+      console.log('Текущая роль:', role)
+      console.log('Текущая сессия:', !!session)
       
       // Сначала очищаем состояние
+      console.log('Очищаем локальное состояние...')
       setUser(null)
       setSession(null)
       setRole(null)
       setLoading(true)
       
+      console.log('Вызываем signOut от Supabase...')
       // Затем вызываем signOut от Supabase
       const { error } = await supabase.auth.signOut()
       
@@ -136,11 +174,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       
       console.log('Sign out successful')
+      console.log('Перенаправляем на главную страницу...')
       
       // Принудительно перенаправляем на главную страницу
       window.location.href = '/'
       
     } catch (error) {
+      console.error('=== ОШИБКА ПРИ ВЫХОДЕ ===')
       console.error('Error signing out:', error)
       // Даже если произошла ошибка, очищаем локальное состояние
       setUser(null)

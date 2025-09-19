@@ -59,11 +59,11 @@ export default function LoginPage() {
       }
 
       if (data?.user) {
-        console.log('Sign in successful, redirecting to dashboard...')
-        // Небольшая задержка для обновления контекста
-        setTimeout(() => {
-          router.push('/dashboard')
-        }, 100)
+        console.log('Sign in successful, user:', data.user.email)
+        console.log('Redirecting to dashboard immediately...')
+        
+        // Принудительно обновляем страницу для корректной работы AuthContext
+        window.location.href = '/dashboard'
       } else {
         setError('Не удалось войти в систему')
       }
