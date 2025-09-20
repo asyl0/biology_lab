@@ -13,7 +13,6 @@ import {
   Plus, 
   Search, 
   SlidersHorizontal, 
-  Edit, 
   Trash2, 
   Eye, 
   Calendar,
@@ -132,7 +131,7 @@ export default function AdminStudentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -270,9 +269,9 @@ export default function AdminStudentsPage() {
                         <Button 
                           size="sm" 
                           variant="outline"
-                          onClick={() => router.push(`/admin/students/${material.id}/edit`)}
+                          onClick={() => router.push(`/students/${material.id}`)}
                         >
-                          <Edit className="h-3 w-3" />
+                          <Eye className="h-3 w-3" />
                         </Button>
                         <Button 
                           size="sm" 

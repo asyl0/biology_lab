@@ -58,7 +58,7 @@ export default function Home() {
   // Если пользователь не авторизован, показываем лендинг
   if (!user) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen custom-scrollbar">
         <Navigation />
         
         {/* Hero Section with Background Image */}

@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { 
   Plus, 
-  Edit, 
   Trash2, 
   Eye, 
   FlaskConical,
@@ -57,7 +56,7 @@ export default function AdminLabsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -183,17 +182,6 @@ export default function AdminLabsPage() {
                       <a href={`/labs/${lab.id}`}>
                         <Eye className="h-4 w-4 mr-2" />
                         Көру
-                      </a>
-                    </Button>
-                    
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      asChild
-                    >
-                      <a href={`/admin/labs/${lab.id}/edit`}>
-                        <Edit className="h-4 w-4 mr-2" />
-                        Өңдеу
                       </a>
                     </Button>
                     

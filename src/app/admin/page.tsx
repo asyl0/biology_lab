@@ -65,7 +65,7 @@ export default function AdminPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-primary-50/30 to-accent-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-background via-primary-50/30 to-accent-50/30 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

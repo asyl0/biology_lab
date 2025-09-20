@@ -112,7 +112,7 @@ export default async function StudentMaterialPage({ params }: StudentMaterialPag
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 custom-scrollbar">
       <div className="container mx-auto px-4 py-8">
         {/* Кнопка назад */}
         <div className="mb-6">

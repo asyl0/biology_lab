@@ -94,6 +94,83 @@
   .hero-button-glow:hover {
     box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
   }
+  
+  /* Кастомный скроллбар */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #10b981 #f0fdf4;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f0fdf4;
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #10b981, #06b6d4);
+    border-radius: 10px;
+    border: 2px solid #f0fdf4;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #059669, #0891b2);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-corner {
+    background: #f0fdf4;
+  }
+  
+  /* Скроллбар для body и html */
+  html, body {
+    scrollbar-width: thin;
+    scrollbar-color: #10b981 #f0fdf4;
+    overflow-x: hidden;
+  }
+  
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+    background: #f0fdf4;
+  }
+  
+  html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #10b981, #06b6d4);
+    border-radius: 10px;
+    border: 2px solid #f0fdf4;
+  }
+  
+  html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #059669, #0891b2);
+  }
+  
+  /* Убеждаемся что скроллбар всегда виден */
+  html {
+    overflow-y: scroll;
+  }
+  
+  /* Дополнительные стили для правильного отображения скроллбара */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Убираем горизонтальный скролл */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Убеждаемся что контент не выходит за границы */
+  #__next, main, .container {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
 }
 
 :root {

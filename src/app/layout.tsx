@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="kz">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased custom-scrollbar`}
       >
         <LanguageProvider>
           <AuthProvider>

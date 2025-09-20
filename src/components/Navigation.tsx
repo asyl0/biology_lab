@@ -169,7 +169,7 @@ export function Navigation() {
 
                 {/* User Dropdown Menu */}
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 z-[100] animate-fade-in">
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 z-[100] animate-fade-in custom-scrollbar">
                     <div className="py-2">
                       {/* User Info */}
                       <div className="px-4 py-4 border-b border-gray-200">
@@ -224,7 +224,7 @@ export function Navigation() {
         {/* Мобильное меню */}
         {isOpen && (
           <div className="md:hidden animate-slide-in relative z-[90]">
-            <Card className="mt-4 p-6 bg-white shadow-2xl rounded-3xl border-0">
+            <Card className="mt-4 p-6 bg-white shadow-2xl rounded-3xl border-0 custom-scrollbar">
               <div className="space-y-4">
                 {getNavigationItems().map((item) => {
                   const Icon = item.icon
