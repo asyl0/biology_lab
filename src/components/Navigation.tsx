@@ -39,6 +39,18 @@ export function Navigation() {
     })
   }, [user, role])
 
+  // Дополнительная проверка состояния пользователя
+  useEffect(() => {
+    if (user && !role) {
+      console.log('Navigation: User exists but no role, forcing re-render...')
+      // Принудительно обновляем компонент
+      const timer = setTimeout(() => {
+        window.location.reload()
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [user, role])
+
   const getNavigationItems = () => {
     // Если пользователь не авторизован, не показываем никаких разделов
     if (!user) {
@@ -89,7 +101,7 @@ export function Navigation() {
   }
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md shadow-xl sticky top-0 z-50">
+    <nav className="bg-white shadow-xl sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           {/* Логотип */}
@@ -157,18 +169,18 @@ export function Navigation() {
 
                 {/* User Dropdown Menu */}
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-card/95 backdrop-blur-md rounded-xl shadow-xl border border-border/50 z-50 animate-fade-in">
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 z-[100] animate-fade-in">
                     <div className="py-2">
                       {/* User Info */}
-                      <div className="px-4 py-4 border-b border-border/50">
+                      <div className="px-4 py-4 border-b border-gray-200">
                         <div className="flex items-center space-x-3">
-                          <div className="h-10 w-10 bg-gradient-to-r from-primary to-primary-600 rounded-full flex items-center justify-center shadow-lg">
-                            <User className="h-5 w-5 text-primary-foreground" />
+                          <div className="h-10 w-10 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                            <User className="h-5 w-5 text-white" />
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-card-foreground">{user.email}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {role === 'admin' ? t('common.admin') : role === 'teacher' ? t('common.teacher') : t('common.student')}
+                            <p className="text-sm font-semibold text-gray-800">{user.email}</p>
+                            <p className="text-xs text-gray-600">
+                              {role === 'admin' ? 'Әкімші' : role === 'teacher' ? 'Мұғалім' : 'Оқушы'}
                             </p>
                           </div>
                         </div>
@@ -177,10 +189,10 @@ export function Navigation() {
                       {/* Logout Button */}
                       <button
                         onClick={handleSignOut}
-                        className="w-full px-4 py-3 text-left text-sm text-card-foreground hover:bg-destructive/10 hover:text-destructive flex items-center space-x-3 transition-all duration-200"
+                        className="w-full px-4 py-3 text-left text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 flex items-center space-x-3 transition-all duration-200"
                       >
                         <LogOut className="h-4 w-4" />
-                        <span className="font-medium">{t('common.logout')}</span>
+                        <span className="font-medium">Шығу</span>
                       </button>
                     </div>
                   </div>
@@ -211,8 +223,8 @@ export function Navigation() {
 
         {/* Мобильное меню */}
         {isOpen && (
-          <div className="md:hidden animate-slide-in">
-            <Card className="mt-4 p-6 bg-white/95 backdrop-blur-md shadow-2xl rounded-3xl border-0">
+          <div className="md:hidden animate-slide-in relative z-[90]">
+            <Card className="mt-4 p-6 bg-white shadow-2xl rounded-3xl border-0">
               <div className="space-y-4">
                 {getNavigationItems().map((item) => {
                   const Icon = item.icon

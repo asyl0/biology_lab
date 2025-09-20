@@ -22,7 +22,7 @@ export default function LoginPage() {
   // Редирект если уже авторизован
   useEffect(() => {
     if (user) {
-      router.push('/dashboard')
+      router.push('/labs')
     }
   }, [user, router])
 
@@ -60,10 +60,10 @@ export default function LoginPage() {
 
       if (data?.user) {
         console.log('Sign in successful, user:', data.user.email)
-        console.log('Redirecting to dashboard immediately...')
+        console.log('Redirecting to labs immediately...')
         
         // Принудительно обновляем страницу для корректной работы AuthContext
-        window.location.href = '/dashboard'
+        window.location.href = '/labs'
       } else {
         setError('Не удалось войти в систему')
       }
@@ -76,27 +76,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-background to-accent-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 animate-fade-in">
         {/* Header */}
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-primary to-primary-600 rounded-2xl shadow-2xl mb-6 animate-bounce-in">
-            <FlaskConical className="h-10 w-10 text-primary-foreground" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl shadow-2xl mb-6 animate-bounce-in">
+            <FlaskConical className="h-10 w-10 text-white" />
           </div>
-          <h2 className="text-4xl font-bold text-gradient mb-4">
-            Вход в систему
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+            Жүйеге кіру
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Войдите в свой аккаунт для доступа к материалам
+          <p className="text-gray-600 text-lg">
+            Материалдарға қол жеткізу үшін тіркелгіңізге кіріңіз
           </p>
         </div>
 
         {/* Form */}
-        <Card className="shadow-2xl border-border/50">
+        <Card className="border-0 shadow-2xl bg-white">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Авторизация</CardTitle>
-            <CardDescription className="text-base">
-              Введите свои данные для входа в систему
+            <CardTitle className="text-2xl font-bold text-gray-800">Авторизация</CardTitle>
+            <CardDescription className="text-gray-600 text-base">
+              Жүйеге кіру үшін деректеріңізді енгізіңіз
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -108,7 +108,7 @@ export default function LoginPage() {
               )}
 
               <div className="space-y-3">
-                <Label htmlFor="email" className="text-base font-semibold">Email</Label>
+                <Label htmlFor="email" className="text-base font-semibold text-gray-700">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -117,22 +117,22 @@ export default function LoginPage() {
                   placeholder="your@email.com"
                   autoComplete="email"
                   required
-                  className="h-12 text-base"
+                  className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                 />
               </div>
 
               <div className="space-y-3">
-                <Label htmlFor="password" className="text-base font-semibold">Пароль</Label>
+                <Label htmlFor="password" className="text-base font-semibold text-gray-700">Құпия сөз</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Введите пароль"
+                    placeholder="Құпия сөзді енгізіңіз"
                     autoComplete="current-password"
                     required
-                    className="h-12 text-base pr-12"
+                    className="h-12 text-base pr-12 border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                   />
                   <Button
                     type="button"
@@ -142,27 +142,27 @@ export default function LoginPage() {
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
+                      <EyeOff className="h-5 w-5 text-emerald-500" />
                     ) : (
-                      <Eye className="h-5 w-5" />
+                      <Eye className="h-5 w-5 text-emerald-500" />
                     )}
                   </Button>
                 </div>
               </div>
 
-              <Button type="submit" className="w-full h-12 text-base btn-hover" disabled={loading}>
-                {loading ? 'Вход...' : 'Войти'}
+              <Button type="submit" className="w-full h-12 text-base bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white rounded-xl font-semibold" disabled={loading}>
+                {loading ? 'Кіруде...' : 'Кіру'}
               </Button>
             </form>
 
             <div className="mt-8 text-center">
-              <p className="text-muted-foreground">
-                Нет аккаунта?{' '}
+              <p className="text-gray-600">
+                Тіркелгі жоқ па?{' '}
                 <a
                   href="/auth/register"
-                  className="font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
+                  className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors duration-200"
                 >
-                  Зарегистрироваться
+                  Тіркелу
                 </a>
               </p>
             </div>

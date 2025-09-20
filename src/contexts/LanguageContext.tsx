@@ -56,7 +56,6 @@ const translations = {
     
     // Навигация
     'nav.home': 'Главная',
-    'nav.dashboard': 'Дашборд',
     'nav.labs': 'Лабораторные работы',
     'nav.steam': 'STEAM материалы',
     'nav.teachers': 'Материалы для учителей',
@@ -80,15 +79,6 @@ const translations = {
     'home.cta.subtitle': 'Присоединяйтесь к тысячам учеников и учителей, которые уже используют Биолаб',
     'home.cta.create_account': 'Создать аккаунт',
     
-    // Дашборд
-    'dashboard.welcome': 'Добро пожаловать',
-    'dashboard.subtitle': 'Изучайте лабораторные работы и образовательные материалы',
-    'dashboard.search_placeholder': 'Поиск материалов...',
-    'dashboard.all_classes': 'Все классы',
-    'dashboard.all_types': 'Все типы',
-    'dashboard.labs_count': 'материалов',
-    'dashboard.steam_count': 'материалов',
-    'dashboard.teachers_count': 'материалов',
     
     // Лабораторные работы
     'labs.theory': 'Теория',
@@ -100,7 +90,7 @@ const translations = {
     'labs.watch_video': 'Смотреть видео',
     'labs.external_resources': 'Внешние ресурсы',
     'labs.not_found': 'Лабораторная работа не найдена',
-    'labs.back_to_dashboard': 'Вернуться к дашборду',
+    'labs.back_to_labs': 'Вернуться к лабораторным работам',
     
     // Аутентификация
     'auth.login.title': 'Вход в систему',
@@ -206,7 +196,6 @@ const translations = {
     
     // Навигация
     'nav.home': 'Басты бет',
-    'nav.dashboard': 'Басқару панелі',
     'nav.labs': 'Зертханалық жұмыстар',
     'nav.steam': 'STEAM материалдары',
     'nav.teachers': 'Мұғалімдерге арналған материалдар',
@@ -230,15 +219,6 @@ const translations = {
     'home.cta.subtitle': 'Биолабты қолданатын мыңдаған оқушылар мен мұғалімдерге қосылыңыз',
     'home.cta.create_account': 'Тіркелгі жасау',
     
-    // Дашборд
-    'dashboard.welcome': 'Қош келдіңіз',
-    'dashboard.subtitle': 'Зертханалық жұмыстар мен білім беру материалдарын оқыңыз',
-    'dashboard.search_placeholder': 'Материалдарды іздеу...',
-    'dashboard.all_classes': 'Барлық сыныптар',
-    'dashboard.all_types': 'Барлық түрлер',
-    'dashboard.labs_count': 'материал',
-    'dashboard.steam_count': 'материал',
-    'dashboard.teachers_count': 'материал',
     
     // Лабораторные работы
     'labs.theory': 'Теория',
@@ -250,7 +230,7 @@ const translations = {
     'labs.watch_video': 'Бейнені көру',
     'labs.external_resources': 'Сыртқы ресурстар',
     'labs.not_found': 'Зертханалық жұмыс табылмады',
-    'labs.back_to_dashboard': 'Басқару панеліне оралу',
+    'labs.back_to_labs': 'Зертханалық жұмыстарға оралу',
     
     // Аутентификация
     'auth.login.title': 'Жүйеге кіру',

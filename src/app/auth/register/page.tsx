@@ -26,11 +26,12 @@ export default function RegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
 
   // Редирект если уже авторизован
   useEffect(() => {
     if (user) {
-      router.push('/dashboard')
+      router.push('/labs')
     }
   }, [user, router])
 
@@ -79,8 +80,16 @@ export default function RegisterPage() {
 
       if (authData.user) {
         // Профиль создается автоматически через триггер в базе данных
-        // Успешная регистрация
-        router.push('/dashboard')
+        // Успешная регистрация - показываем сообщение и перенаправляем
+        console.log('Registration successful, redirecting to labs...')
+        setError('') // Очищаем ошибки
+        setSuccess(true) // Показываем успех
+        setLoading(true) // Показываем загрузку
+        
+        // Ждем немного для обновления AuthContext и перенаправляем
+        setTimeout(() => {
+          window.location.href = '/labs'
+        }, 1500) // Увеличиваем время до 1.5 секунд
       }
     } catch (err) {
       setError('Произошла ошибка при регистрации')
@@ -99,58 +108,68 @@ export default function RegisterPage() {
   // Показываем загрузку если пользователь уже авторизован
   if (user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-emerald-500 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-gray-600">Перенаправление...</p>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 animate-fade-in">
         {/* Header */}
         <div className="text-center">
-          <div className="flex justify-center">
-            <FlaskConical className="h-12 w-12 text-primary" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl shadow-2xl mb-6 animate-bounce-in">
+            <FlaskConical className="h-10 w-10 text-white" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Регистрация
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+            Тіркелу
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Создайте аккаунт для доступа к образовательным материалам
+          <p className="text-gray-600 text-lg">
+            Білім беру материалдарына қол жеткізу үшін тіркелгі жасаңыз
           </p>
         </div>
 
         {/* Form */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Создание аккаунта</CardTitle>
-            <CardDescription>
-              Заполните форму для регистрации в системе
+        <Card className="border-0 shadow-2xl bg-white">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold text-gray-800">Тіркелгі жасау</CardTitle>
+            <CardDescription className="text-gray-600 text-base">
+              Жүйеге тіркелу үшін форманы толтырыңыз
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-medium">
                   {error}
                 </div>
               )}
+              
+              {success && (
+                <div className="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-xl text-sm font-medium">
+                  Тіркелу сәтті! Перенаправляем...
+                </div>
+              )}
 
-              <div className="space-y-2">
-                <Label htmlFor="fullName">Полное имя</Label>
+              <div className="space-y-3">
+                <Label htmlFor="fullName" className="text-base font-semibold text-gray-700">Толық аты</Label>
                 <Input
                   id="fullName"
                   type="text"
                   value={formData.fullName}
                   onChange={(e) => handleInputChange('fullName', e.target.value)}
-                  placeholder="Иван Иванов"
+                  placeholder="Атыңызды енгізіңіз"
                   required
+                  className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+              <div className="space-y-3">
+                <Label htmlFor="email" className="text-base font-semibold text-gray-700">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -158,39 +177,40 @@ export default function RegisterPage() {
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   placeholder="your@email.com"
                   required
+                  className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="role">Роль</Label>
+              <div className="space-y-3">
+                <Label htmlFor="role" className="text-base font-semibold text-gray-700">Рөл</Label>
                 <Select
                   value={formData.role}
                   onValueChange={(value) => handleInputChange('role', value)}
                 >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Выберите роль" />
+                  <SelectTrigger className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl">
+                    <SelectValue placeholder="Рөлді таңдаңыз" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="student">Ученик</SelectItem>
-                    <SelectItem value="teacher">Учитель</SelectItem>
+                    <SelectItem value="student">Оқушы</SelectItem>
+                    <SelectItem value="teacher">Мұғалім</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               {formData.role === 'student' && (
-                <div className="space-y-2">
-                  <Label htmlFor="class">Класс</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="class" className="text-base font-semibold text-gray-700">Сынып</Label>
                   <Select
                     value={formData.class}
                     onValueChange={(value) => handleInputChange('class', value)}
                   >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Выберите класс" />
+                    <SelectTrigger className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl">
+                      <SelectValue placeholder="Сыныпты таңдаңыз" />
                     </SelectTrigger>
                     <SelectContent>
                       {[7, 8, 9, 10, 11].map(grade => (
                         <SelectItem key={grade} value={grade.toString()}>
-                          {grade} класс
+                          {grade}-сынып
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -198,16 +218,17 @@ export default function RegisterPage() {
                 </div>
               )}
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Пароль</Label>
+              <div className="space-y-3">
+                <Label htmlFor="password" className="text-base font-semibold text-gray-700">Құпия сөз</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    placeholder="Минимум 6 символов"
+                    placeholder="Кемінде 6 таңба"
                     required
+                    className="h-12 text-base pr-12 border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                   />
                   <Button
                     type="button"
@@ -217,24 +238,25 @@ export default function RegisterPage() {
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-5 text-emerald-500" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-5 text-emerald-500" />
                     )}
                   </Button>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Подтверждение пароля</Label>
+              <div className="space-y-3">
+                <Label htmlFor="confirmPassword" className="text-base font-semibold text-gray-700">Құпия сөзді растау</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                    placeholder="Повторите пароль"
+                    placeholder="Құпия сөзді қайталаңыз"
                     required
+                    className="h-12 text-base pr-12 border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                   />
                   <Button
                     type="button"
@@ -244,27 +266,27 @@ export default function RegisterPage() {
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-5 text-emerald-500" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-5 text-emerald-500" />
                     )}
                   </Button>
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Регистрация...' : 'Зарегистрироваться'}
+              <Button type="submit" className="w-full h-12 text-base bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white rounded-xl font-semibold" disabled={loading}>
+                {loading ? (success ? 'Перенаправляем...' : 'Тіркелуде...') : 'Тіркелу'}
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Уже есть аккаунт?{' '}
+            <div className="mt-8 text-center">
+              <p className="text-gray-600">
+                Тіркелгі бар ма?{' '}
                 <a
                   href="/auth/login"
-                  className="font-medium text-primary hover:text-primary/80"
+                  className="font-semibold text-emerald-600 hover:text-emerald-700 transition-colors duration-200"
                 >
-                  Войти
+                  Кіру
                 </a>
               </p>
             </div>

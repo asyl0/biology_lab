@@ -45,9 +45,9 @@ export default function Home() {
 
   useEffect(() => {
     if (!loading && user) {
-      console.log('Home: User authenticated, redirecting to dashboard...')
-      // Принудительно перенаправляем на dashboard
-      window.location.href = '/dashboard'
+      console.log('Home: User authenticated, redirecting to labs...')
+      // Принудительно перенаправляем на labs
+      window.location.href = '/labs'
     }
   }, [user, loading, router])
 
@@ -293,7 +293,7 @@ export default function Home() {
                   className="group animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <Card className="h-full p-6 hover:shadow-2xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm">
+                  <Card className="h-full p-6 hover:shadow-2xl transition-all duration-300 border-0 bg-white">
                     <div className="flex items-start space-x-4">
                       <div 
                         className={`w-12 h-12 bg-gradient-to-r from-${feature.color}-500 to-${feature.color === 'emerald' ? 'cyan' : 'emerald'}-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:shadow-xl transition-all duration-300 hover:scale-110 hover:rotate-3`}

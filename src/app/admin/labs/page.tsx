@@ -29,7 +29,7 @@ export default function AdminLabsPage() {
   // Проверка прав доступа
   useEffect(() => {
     if (role !== 'admin') {
-      router.push('/dashboard')
+      router.push('/labs')
       return
     }
   }, [role, router])

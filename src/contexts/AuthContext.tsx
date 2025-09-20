@@ -91,6 +91,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           console.log('Пользователь вышел, перенаправляем...')
           window.location.href = '/'
         }
+        
+        // При регистрации также обновляем состояние
+        if (event === 'SIGNED_IN') {
+          console.log('Пользователь вошел, обновляем состояние...')
+          // Дополнительная проверка через небольшую задержку
+          setTimeout(checkAuthState, 1000)
+        }
       }
     )
 
@@ -114,6 +121,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Проверяем состояние аутентификации через небольшую задержку
     setTimeout(checkAuthState, 500)
+    
+    // Дополнительная проверка через 2 секунды для случаев регистрации
+    setTimeout(checkAuthState, 2000)
 
     return () => subscription.unsubscribe()
   }, [])

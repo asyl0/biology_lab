@@ -38,7 +38,7 @@ export default function NewLabPage() {
   // Проверка прав доступа
   useEffect(() => {
     if (role && role !== 'admin') {
-      router.push('/dashboard')
+      router.push('/labs')
     }
   }, [role, router])
 
