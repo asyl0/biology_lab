@@ -213,7 +213,7 @@ export default function NewLabPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 custom-scrollbar">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -293,7 +293,7 @@ export default function NewLabPage() {
           {/* Двухколоночная сетка для контента */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Теория */}
-            <Card>
+            <Card className="border-0 shadow-xl bg-white">
               <CardHeader>
                 <CardTitle>Теориялық бөлім (міндетті емес)</CardTitle>
                 <CardDescription>
@@ -319,7 +319,7 @@ export default function NewLabPage() {
             </Card>
 
             {/* Процесс выполнения */}
-            <Card>
+            <Card className="border-0 shadow-xl bg-white">
               <CardHeader>
                 <CardTitle>Орындау процесі (міндетті емес)</CardTitle>
                 <CardDescription>
@@ -348,7 +348,7 @@ export default function NewLabPage() {
           {/* Двухколоночная сетка для файлов */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Изображения для карточки */}
-            <Card>
+            <Card className="border-0 shadow-xl bg-white">
               <CardHeader>
                 <CardTitle>Карточка суреті (міндетті емес)</CardTitle>
                 <CardDescription>
@@ -369,7 +369,7 @@ export default function NewLabPage() {
             </Card>
 
             {/* Внешние ссылки */}
-            <Card>
+            <Card className="border-0 shadow-xl bg-white">
               <CardHeader>
                 <CardTitle>Сыртқы сілтемелер (міндетті емес)</CardTitle>
                 <CardDescription>

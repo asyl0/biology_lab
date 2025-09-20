@@ -56,7 +56,7 @@ export default function AdminLabsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 custom-scrollbar">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -82,60 +82,62 @@ export default function AdminLabsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="border-0 shadow-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <FlaskConical className="h-8 w-8 text-primary" />
+                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <FlaskConical className="h-4 w-4 text-white" />
+                </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">Барлық жұмыстар</p>
-                  <p className="text-2xl font-bold text-gray-900">{labs.length}</p>
+                  <p className="text-sm font-medium text-emerald-100">Барлық жұмыстар</p>
+                  <p className="text-2xl font-bold text-white">{labs.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="border-0 shadow-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="h-8 w-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-green-600 font-bold">9</span>
+                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold">7</span>
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">9 сынып</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-cyan-100">7 сынып</p>
+                  <p className="text-2xl font-bold text-white">
+                    {labs.filter(lab => lab.class_level === 7).length}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-0 shadow-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold">8</span>
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-emerald-100">8 сынып</p>
+                  <p className="text-2xl font-bold text-white">
+                    {labs.filter(lab => lab.class_level === 8).length}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-0 shadow-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-white">
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold">9</span>
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-cyan-100">9 сынып</p>
+                  <p className="text-2xl font-bold text-white">
                     {labs.filter(lab => lab.class_level === 9).length}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-blue-600 font-bold">10</span>
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">10 сынып</p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {labs.filter(lab => lab.class_level === 10).length}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-purple-600 font-bold">11</span>
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">11 сынып</p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {labs.filter(lab => lab.class_level === 11).length}
                   </p>
                 </div>
               </div>
@@ -146,7 +148,7 @@ export default function AdminLabsPage() {
         {/* Labs List */}
         <div className="space-y-6">
           {labs.map((lab) => (
-            <Card key={lab.id} className="hover:shadow-lg transition-shadow">
+            <Card key={lab.id} className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-white hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">

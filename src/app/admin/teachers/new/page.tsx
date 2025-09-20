@@ -84,7 +84,7 @@ export default function NewTeacherMaterialPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 custom-scrollbar">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -94,15 +94,16 @@ export default function NewTeacherMaterialPage() {
             <Button 
               variant="outline" 
               onClick={() => router.push('/admin/teachers')}
+              className="border-2 border-emerald-200 hover:border-emerald-400 hover:bg-emerald-50 rounded-xl"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Назад
             </Button>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
                 Жаңа мұғалім материал
               </h1>
-              <p className="text-gray-600">
+              <p className="text-xl text-gray-600">
                 Мұғалім материалдарын қосу және реттеу
               </p>
             </div>
@@ -114,27 +115,28 @@ export default function NewTeacherMaterialPage() {
             {/* Левая колонка */}
             <div className="space-y-6">
               {/* Основная информация */}
-              <Card>
+              <Card className="border-0 shadow-xl bg-white">
                 <CardHeader>
-                  <CardTitle>Негізгі ақпарат</CardTitle>
-                  <CardDescription>
+                  <CardTitle className="text-2xl font-bold text-gray-800">Негізгі ақпарат</CardTitle>
+                  <CardDescription className="text-lg text-gray-600">
                     Материал туралы негізгі мәліметтер
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="title">Атауы</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="title" className="text-lg font-semibold text-gray-700">Атауы</Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) => handleInputChange('title', e.target.value)}
                       placeholder="Мұғалім материалдарының атауы"
                       required
+                      className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="description">Сипаттама</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="description" className="text-lg font-semibold text-gray-700">Сипаттама</Label>
                     <Textarea
                       id="description"
                       value={formData.description}
@@ -142,20 +144,22 @@ export default function NewTeacherMaterialPage() {
                       placeholder="Материалдың қысқаша сипаттамасы"
                       rows={4}
                       required
+                      className="text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="class_level">Сынып</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="class_level" className="text-lg font-semibold text-gray-700">Сынып</Label>
                     <Select value={formData.class_level} onValueChange={(value) => handleInputChange('class_level', value)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="h-12 text-base border-2 border-emerald-200 focus:border-emerald-500 rounded-xl">
                         <SelectValue placeholder="Сыныпты таңдаңыз" />
                       </SelectTrigger>
                       <SelectContent>
+                        <SelectItem value="7">7-сынып</SelectItem>
+                        <SelectItem value="8">8-сынып</SelectItem>
                         <SelectItem value="9">9-сынып</SelectItem>
                         <SelectItem value="10">10-сынып</SelectItem>
                         <SelectItem value="11">11-сынып</SelectItem>
-                        <SelectItem value="12">12-сынып</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -164,7 +168,7 @@ export default function NewTeacherMaterialPage() {
               </Card>
 
               {/* Изображения для карточки */}
-              <Card>
+              <Card className="border-0 shadow-xl bg-white">
                 <CardHeader>
                   <CardTitle>Карточка суреттері</CardTitle>
                   <CardDescription>
@@ -219,10 +223,15 @@ export default function NewTeacherMaterialPage() {
               type="button"
               variant="outline"
               onClick={() => router.push('/admin/teachers')}
+              className="h-12 px-8 border-2 border-emerald-200 hover:border-emerald-400 hover:bg-emerald-50 rounded-xl font-semibold"
             >
               Болдырмау
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button 
+              type="submit" 
+              disabled={loading}
+              className="h-12 px-8 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white rounded-xl font-semibold"
+            >
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>

@@ -131,7 +131,7 @@ export default function AdminStudentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 custom-scrollbar">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-cyan-50 to-emerald-50 custom-scrollbar">
       <Navigation />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -193,7 +193,7 @@ export default function AdminStudentsPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMaterials.map((material) => (
-              <Card key={material.id} className="hover:shadow-lg transition-shadow">
+              <Card key={material.id} className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-white hover:scale-105">
                 <CardHeader className="p-0">
                   {material.image_url ? (
                     <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
